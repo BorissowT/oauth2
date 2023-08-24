@@ -12,9 +12,9 @@ import {setCredentials} from "./store/users/usersSlice";
 function App() {
     const {keycloak} = useKeycloak()
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         if (keycloak.tokenParsed && keycloak.token) {
-            console.log(keycloak.tokenParsed)
             dispatch(setCredentials({user: keycloak.tokenParsed.preferred_username, token: keycloak.token}))
         }
     }, [dispatch, keycloak.token, keycloak.tokenParsed]);
