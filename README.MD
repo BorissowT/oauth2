@@ -57,7 +57,19 @@ Support a more flexible security model, helping you to easily adapt to changes i
 
 Make changes at runtime; applications are only concerned about the resources and scopes being protected and not how they are protected.
 
-### Policy
+### Policy<br/>
 A policy defines the conditions that must be satisfied to grant access to an object. Unlike permissions, you do not specify the object being protected but rather the conditions that must be satisfied for access to a given object (for example, resource, scope, or both). Policies are strongly related to the different access control mechanisms (ACMs) that you can use to protect your resources. With policies, you can implement strategies for attribute-based access control (ABAC), role-based access control (RBAC), context-based access control, or any combination of these.
 Keycloak leverages the concept of policies and how you define them by providing the concept of aggregated policies, where you can build a "policy of policies" and still control the behavior of the evaluation. Instead of writing one large policy with all the conditions that must be satisfied for access to a given resource, the policies implementation in Keycloak Authorization Services follows the divide-and-conquer technique. That is, you can create individual policies, then reuse them with different permissions and build more complex policies by combining individual policies.
+<br/><br/>
+### RPT token
+This means that resource servers can enforce access to their protected resources based on the permissions granted by the server and held by an access token. In Keycloak Authorization Services the access token with permissions is called a Requesting Party Token or RPT for short.
+<br/><br/>
+#### useful links:
 
+https://developers.redhat.com/blog/2020/01/29/api-login-and-jwt-token-generation-using-keycloak
+<br><br>
+https://www.youtube.com/watch?v=3K77Pvv-ouU
+<br><br>
+https://www.youtube.com/watch?v=M8ym5UwnnZg
+<br><br>
+docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.1 start-dev
