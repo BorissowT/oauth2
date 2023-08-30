@@ -64,6 +64,8 @@ Keycloak leverages the concept of policies and how you define them by providing 
 ### RPT token
 This means that resource servers can enforce access to their protected resources based on the permissions granted by the server and held by an access token. In Keycloak Authorization Services the access token with permissions is called a Requesting Party Token or RPT for short.
 <br/><br/>
+curl -X POST   http://localhost:8080/auth/realms/${realm}/protocol/openid-connect/token  -H "Authorization: Bearer ${access_token}" --data "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket" --data "audience={resource_server_client_id}"
+<br/><br/>
 #### useful links:
 
 https://developers.redhat.com/blog/2020/01/29/api-login-and-jwt-token-generation-using-keycloak
