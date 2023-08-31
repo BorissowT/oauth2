@@ -61,9 +61,49 @@ Make changes at runtime; applications are only concerned about the resources and
 A policy defines the conditions that must be satisfied to grant access to an object. Unlike permissions, you do not specify the object being protected but rather the conditions that must be satisfied for access to a given object (for example, resource, scope, or both). Policies are strongly related to the different access control mechanisms (ACMs) that you can use to protect your resources. With policies, you can implement strategies for attribute-based access control (ABAC), role-based access control (RBAC), context-based access control, or any combination of these.
 Keycloak leverages the concept of policies and how you define them by providing the concept of aggregated policies, where you can build a "policy of policies" and still control the behavior of the evaluation. Instead of writing one large policy with all the conditions that must be satisfied for access to a given resource, the policies implementation in Keycloak Authorization Services follows the divide-and-conquer technique. That is, you can create individual policies, then reuse them with different permissions and build more complex policies by combining individual policies.
 <br/><br/>
-### RPT token
-This means that resource servers can enforce access to their protected resources based on the permissions granted by the server and held by an access token. In Keycloak Authorization Services the access token with permissions is called a Requesting Party Token or RPT for short.
+## 2.1.  Client Types (OAuth)
+source: https://www.rfc-editor.org/rfc/rfc6749#section-2.1 <br/><br/>
+   OAuth defines two client types, based on their ability to
+   authenticate securely with the authorization server (i.e., ability to
+   maintain the confidentiality of their client credentials):
 <br/><br/>
+   confidential<br/><br/>
+      Clients capable of maintaining the confidentiality of their
+      credentials (e.g., client implemented on a secure server with
+      restricted access to the client credentials), or capable of secure
+      client authentication using other means.
+<br/><br/>
+   public<br/><br/>
+      Clients incapable of maintaining the confidentiality of their
+      credentials (e.g., clients executing on the device used by the
+      resource owner, such as an installed native application or a web
+      browser-based application), and incapable of secure client
+      authentication via any other means.
+<br/><br/>
+   The client type designation is based on the authorization server's
+   definition of secure authentication and its acceptable exposure
+   levels of client credentials.  The authorization server SHOULD NOT
+   make assumptions about the client type.
+<br/><br/>
+   A client may be implemented as a distributed set of components, each
+   with a different client type and security context (e.g., a
+   distributed client with both a confidential server-based component
+   and a public browser-based component).  If the authorization server
+   does not provide support for such clients or does not provide
+   guidance with regard to their registration, the client SHOULD
+   register each component as a separate client.
+<br/><br/>
+### Usage of RPT token
+
+The two invocations that you mention are not supposed to be by the same party.
+
+The first one is authentication by the client app: it provides authent data (here, username + passwd) and gets a token from the authent service. This token can be used by the client app to access any service, provided the audience is ok, date is ok etc. The client does not know how any data or calls are protected, it just uses a token as a black box.
+
+The service called, the resource server, acts as a policy enforcement point (PEP). It gets a token, validates it, and then uses it to enforce policies, refusing or granting access to this or that resource that it controls.
+For this it needs to evaluate policies. That’s not its job, it’s the job of a Policy Decision Point (PDP), so it does the second call, to get permissions from the PDP. Here the PDP is Keycloak. The PEP calls it, saying hey I want to know if I can grant access to these particular resources with these particular claims (the JWT). Keycloak evaluates the policies against all this, acting as PDP, and returns the permissions in an RPT (which may be as simple as yes/no, by the way, it doesn’t need to be a JWT or even a list of resources).
+(note that the PEP could simply look inside the JWT and check the claims instead of permissions, but that means you can’t manage policies any more, a whole different discussion)
+
+ The<br/><br/>
 curl -X POST   http://localhost:8080/auth/realms/${realm}/protocol/openid-connect/token  -H "Authorization: Bearer ${access_token}" --data "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket" --data "audience={resource_server_client_id}"
 <br/><br/>
 #### useful links:

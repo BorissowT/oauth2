@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "c36a8083-43cf-402c-b417-023a0e4cb58b",
+		"name": "keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21224047"
+	},
+	"item": [
+		{
+			"name": "get access token with credentials",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "myfrontend",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "uatrn2oKApmYAGm9Uf2Juf25hQOOWv8w",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "myuser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"realms",
+						"myrealm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "introspect token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqR2RqdnhvMW5yX1g4c2xsZ2JoRlhOVWNEWkF4M0dGRzRmXzAyelg2bEJjIn0.eyJleHAiOjE2OTI3OTMwNzcsImlhdCI6MTY5Mjc5Mjc3NywianRpIjoiM2M2NDViNzEtZjdjNi00YjlkLTk0YWYtNGY3ZTFhN2E0ODY0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL215cmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNmE1M2Q1NDgtOGZiMy00ZjcxLTk3ZTgtMWEyNzIyZTJiYzNiIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibXlmcm9udGVuZCIsInNlc3Npb25fc3RhdGUiOiI2NWUyZmE5OC01NjJmLTQyYmMtOThmYi04ZWNjY2U4ZGJiYmYiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtbXlyZWFsbSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwic2lkIjoiNjVlMmZhOTgtNTYyZi00MmJjLTk4ZmItOGVjY2NlOGRiYmJmIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJteXVzZXIiLCJnaXZlbl9uYW1lIjoiIiwiZmFtaWx5X25hbWUiOiIifQ.q8KYEac0GU_RNBezIrLO6tXrElVwSe30WcOTMZrIgta6TAOWdSkSEbG7URROFnxJZqZ8LGRw4-dPj2OhZUAGdkKkv50MrHExyrGWAe69ofmtvBi_-umYgav6uOb0hy4KmuIeufeaYb3GCv-Jt0WO_60pTvbjnV6bJLmrVaQWx5oSh0mtNSYKamkL8FJCYMSCD-ed6TXmoGxnYLrfHaAKEjQ1YI7PUhEg9JZlvolR6xgea9t6pNcJLiTl88wEIQqlGTMFbpfphR6s8kMa3G6EwCxSJSuLW0mLnSqw6DH6SnT7BypiDSFiJ4fQtlst6PssaMogvkf6eysYbNdul0DjWA",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "myapi",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "0v9IBDHlETXjn4CYsNK0JMHsdbv4L38r",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/token/introspect",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"realms",
+						"myrealm",
+						"protocol",
+						"openid-connect",
+						"token",
+						"introspect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get rpt",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJKVmo0azhqYkFzMkw3MVFNWVhNQ2VXekhOaXRmY3pjeVRYYzJGZ1Vmd0YwIn0.eyJleHAiOjE2OTM0ODExNzUsImlhdCI6MTY5MzQ4MDg3NSwiYXV0aF90aW1lIjoxNjkzNDc3NzE1LCJqdGkiOiI2YTM4YjU5YS1kMTA2LTQ5ODYtYjUxYy1iNzFhOTZlN2IwNGUiLCJpc3MiOiJodHRwOi8vMTkyLjE2OC4xMDUuMTM5OjgwODAvcmVhbG1zL215cmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNTQ5YmJhMjYtMGE5Ny00ZWEzLTliNmEtNGMwNWU5MDVmNjRjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoicmVhY3RjbGllbnQiLCJub25jZSI6IjZmODY4ZGRiLTRmMTktNDhjNC04MjFmLWExOTY0MWNlN2JkMiIsInNlc3Npb25fc3RhdGUiOiIxM2M2NDRjNi0wYWIxLTQ1ZTAtOWJmOS1lZDRmNGY4M2Q2MzEiLCJhY3IiOiIwIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtbXlyZWFsbSIsIm15dXNlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG15Y2xpZW50c2NvcGUgZW1haWwiLCJzaWQiOiIxM2M2NDRjNi0wYWIxLTQ1ZTAtOWJmOS1lZDRmNGY4M2Q2MzEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlciIsImdpdmVuX25hbWUiOiIiLCJmYW1pbHlfbmFtZSI6IiJ9.TvrRyLZ9-BwtbC0vZ1pry9Vf8e5wyZ71sBOpvmpahwfGFv5Vod_ODmkWXBVk2RFljaOIBM9-XdmZ3DTrQmqrinTaMDqfmAClQivz7zRl6hhTshQIUvixDxiTY91dAPYQRG-3txzu-gM6Uc-ck6otplQ2kABu5irpEEJubM5CCvSch15E7jh6UOWusqR4tJnx6bdk06lIVJRIQY3XmOTo5tAo4zReuJL9csxsD_H_fly9b_Tr85ShpXlZ7l2YsY4-7wJGbfhqu3oS7g89TyYPOElU_W76JeyS1W31p2DFx9p59UQm66AM8102HbK234Ww8o2OfGVfeO3IDdKFONzFqA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:uma-ticket",
+							"type": "text"
+						},
+						{
+							"key": "audience",
+							"value": "myclient",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/myrealm/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"myrealm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
