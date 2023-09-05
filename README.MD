@@ -114,4 +114,4 @@ https://www.youtube.com/watch?v=3K77Pvv-ouU
 <br><br>
 https://www.youtube.com/watch?v=M8ym5UwnnZg
 <br><br>
-docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.1 start-dev
+docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev --features=preview --http-relative-path=/auth
