@@ -1,8 +1,9 @@
 """Python Flask API Auth0 integration example
 """
 
-from flask import Flask, jsonify
-from authlib.integrations.flask_oauth2 import ResourceProtector
+from flask import Flask, jsonify, request
+
+from resource_protector import ResourceProtector
 from validator import KeyCloakJWTBearerTokenValidator
 from flask_cors import CORS
 
@@ -10,9 +11,10 @@ from flask_cors import CORS
 require_auth = ResourceProtector()
 validator = KeyCloakJWTBearerTokenValidator(
     # Here is the problem with mapping of localhost to my local network ip.
-    "http://192.168.105.139:8080/auth/realms/myrealm",
-    "myrealm",
-    "myapi"
+    #"http://192.168.105.139:8080/realms/myrealm",
+    issuer="http://localhost:8080/auth/realms/myrealm",
+    realm="myrealm",
+    client_id="myclient"
 )
 require_auth.register_token_validator(validator)
 
@@ -30,32 +32,32 @@ def public():
     return jsonify(message=response)
 
 
-@APP.route("/api/private")
+@APP.route("/api/buildings")
 @require_auth(None)
 def private():
     """A valid access token is required."""
     response = (
-        "PRIVet!"
+        "HELLO FROM A PRIVATE ENDPOINT"
     )
     return jsonify(message=response)
 
 
-@APP.route("/api/messages")
-@require_auth("read:messages")
+@APP.route("/api/messages", methods=['GET'])
+@require_auth(resource='message', scopes=["read"])
 def read_messages():
     """A valid access token and scope are required."""
     response = (
-        "Hello from a private endpoint! read:messages"
+        "GET"
     )
     return jsonify(message=response)
 
 
 @APP.route("/api/messages", methods=['POST'])
-@require_auth("write:messages")
+@require_auth(resource='message', scopes=["write"])
 def write_messages():
     """A valid access token and scope are required."""
     response = (
-        "Hello from a private endpoint! write:messages"
+        "POST"
     )
     return jsonify(message=response)
 
