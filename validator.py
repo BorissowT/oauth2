@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
+    """Validation class. Must be injected at ResourceProtector."""
     TOKEN_TYPE = 'bearer'
     token_cls = JWTBearerToken
     client_id = None
@@ -26,7 +27,8 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
         """Configure claims for Bearer Token Validator and for jwt decode.
          Retrieve public key from key cloak.
 
-        :param issuer:
+        :param issuer: keycloak url.
+                    example(http://192.168.105.139:8080/auth/realms/myrealm)
         :param realm: keycloak realm
         :param client_id: client_id of protected resource(api)
         :param client_secret: client secret of protected resource(api)
@@ -52,7 +54,11 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
         self.claims_options = claims_options
 
     def authenticate_token(self, token_string):
-        """Authenticate access token with public key defined by auth server."""
+        """Authenticate access token with public key defined by auth server.
+
+        :param token_string: access token in string.
+        :return: JWT Token object
+        """
         try:
             token = jwt.decode(
                 token_string, self.public_key,
@@ -75,7 +81,7 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
         and resources
 
         :param access_token: access token issued by key cloak
-        :param request:
+        :param request: Flask context request
         :param resource: keycloak resource
         :param scopes: scopes allowed for particular resource
         :return:
@@ -104,7 +110,7 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
         :param access_token_string: access token issued by key cloak in string
         :param required_resource: required resource for endpoint
         :param required_scopes: required scopes for endpoint
-        :return:
+        :return: bool True if insufficient
         """
         user_permissions = self.get_rpt_permissions(access_token_string)
         for permission in user_permissions:
@@ -118,7 +124,7 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
         """Make request POST call to RPT endpoint. Return access token
 
         :param access_token_string:
-        :return:
+        :return: token in string
         """
         url = self.issuer + "/protocol/openid-connect/token"
         headers = {
@@ -139,7 +145,7 @@ class KeyCloakJWTBearerTokenValidator(BearerTokenValidator):
          access token.
 
         :param access_token_string:
-        :return:
+        :return: dict with permissions
         """
 
         rpt_access_token = self.execute_rpt_call(access_token_string)

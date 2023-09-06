@@ -9,7 +9,9 @@ from flask import request as _req, g
 
 
 class ResourceProtector(RPBase):
-    """A protecting method for resource servers. Creating a ``require_oauth``
+    """BASED ON authlib.integrations.flask_oauth2 import ResourceProtector.
+
+    A protecting method for resource servers. Creating a ``require_oauth``
     decorator easily with ResourceProtector::
 
         require_oauth = ResourceProtector()
@@ -25,16 +27,25 @@ class ResourceProtector(RPBase):
         TODO rewrite usage here
         # protect resource with require_oauth
 
-        @app.route('/user')
-        @require_oauth(['profile'])
+        @app.route('/api/apartments', methods=['GET'])
+        @require_auth(resource='apartments', scopes=["read"])
         def user_profile():
-            user = User.query.get(current_token.user_id)
-            return jsonify(user.to_dict())
+            apartments = Apartment.query.get(owner_id=current_token.user_id)
+            return jsonify(apartments.to_dict())
         """
 
     def __call__(self, resource: str = None,
                  scopes: list[str] = None,
                  optional=None):
+        """Use instance as a decorator:
+
+        @require_auth(resource='apartments', scopes=["read"])
+        def user_profile():
+
+        :param resource: name of keycloak resource.
+        :param scopes: scopes to keycloak resource.
+        :param optional: see authlib.integrations.flask_oauth2
+        """
         def wrapper(f):
             @functools.wraps(f)
             def decorated(*args, **kwargs):
@@ -72,7 +83,13 @@ class ResourceProtector(RPBase):
                          request,
                          resource: str = None,
                          scopes: list[str] = None):
-        """Validate the request and return a token."""
+        """Validate the request and return a token.
+
+        :param request: flask context request
+        :param resource: a string name of resource in auth server
+        :param scopes: a list of scope values
+        :return: access authlib.oauth2.rfc7523 import JWTBearerToken
+        """
         validator, token_string = self.parse_request_authorization(request)
         validator.validate_request(request)
         access_token = validator.authenticate_token(token_string)

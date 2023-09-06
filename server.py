@@ -12,7 +12,7 @@ require_auth = ResourceProtector()
 validator = KeyCloakJWTBearerTokenValidator(
     # Here is the problem with mapping of localhost to my local network ip.
     #"http://192.168.105.139:8080/realms/myrealm",
-    issuer="http://localhost:8080/auth/realms/myrealm",
+    issuer="http://192.168.105.139:8080/auth/realms/myrealm",
     realm="myrealm",
     client_id="myclient"
 )
@@ -32,32 +32,82 @@ def public():
     return jsonify(message=response)
 
 
-@APP.route("/api/buildings")
-@require_auth(None)
-def private():
+@APP.route("/api/rooms", methods=['GET'])
+@require_auth(resource='rooms', scopes=["read"])
+def get_rooms():
     """A valid access token is required."""
     response = (
-        "HELLO FROM A PRIVATE ENDPOINT"
+        "<<<<<<<ROOMS GET>>>>>>>"
     )
     return jsonify(message=response)
 
 
-@APP.route("/api/messages", methods=['GET'])
-@require_auth(resource='message', scopes=["read"])
-def read_messages():
-    """A valid access token and scope are required."""
+@APP.route("/api/rooms", methods=['POST'])
+@require_auth(resource='rooms', scopes=["write"])
+def create_rooms():
+    """A valid access token is required."""
     response = (
-        "GET"
+        "<<<<<<<ROOMS POST>>>>>>>"
     )
     return jsonify(message=response)
 
 
-@APP.route("/api/messages", methods=['POST'])
-@require_auth(resource='message', scopes=["write"])
-def write_messages():
-    """A valid access token and scope are required."""
+@APP.route("/api/rooms", methods=['PUT'])
+@require_auth(resource='rooms', scopes=["update"])
+def update_rooms():
+    """A valid access token is required."""
     response = (
-        "POST"
+        "<<<<<<<ROOMS PUT>>>>>>>"
+    )
+    return jsonify(message=response)
+
+
+@APP.route("/api/rooms", methods=['DELETE'])
+@require_auth(resource='rooms', scopes=["delete"])
+def delete_rooms():
+    """A valid access token is required."""
+    response = (
+        "<<<<<<<ROOMS DELETE>>>>>>>"
+    )
+    return jsonify(message=response)
+
+
+@APP.route("/api/apartments", methods=['GET'])
+@require_auth(resource='apartments', scopes=["read"])
+def get_apartments():
+    """A valid access token is required."""
+    response = (
+        "<<<<<<<APARTMENTS GET>>>>>>>"
+    )
+    return jsonify(message=response)
+
+
+@APP.route("/api/apartments", methods=['POST'])
+@require_auth(resource='apartments', scopes=["write"])
+def create_apartments():
+    """A valid access token is required."""
+    response = (
+        "<<<<<<<APARTMENTS POST>>>>>>>"
+    )
+    return jsonify(message=response)
+
+
+@APP.route("/api/apartments", methods=['PUT'])
+@require_auth(resource='apartments', scopes=["update"])
+def update_apartments():
+    """A valid access token is required."""
+    response = (
+        "<<<<<<<APARTMENTS PUT>>>>>>>"
+    )
+    return jsonify(message=response)
+
+
+@APP.route("/api/apartments", methods=['DELETE'])
+@require_auth(resource='apartments', scopes=["delete"])
+def delete_apartments():
+    """A valid access token is required."""
+    response = (
+        "<<<<<<<APARTMENTS DELETE>>>>>>>"
     )
     return jsonify(message=response)
 
