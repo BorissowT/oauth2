@@ -1,0 +1,236 @@
+{
+  "allowRemoteResourceManagement": true,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "Default Resource",
+      "type": "urn:myclient:resources:default",
+      "ownerManagedAccess": false,
+      "attributes": {},
+      "_id": "d67f42c8-1d12-4673-8124-7486e01325a5",
+      "uris": [
+        "/*"
+      ]
+    },
+    {
+      "name": "apartments",
+      "ownerManagedAccess": false,
+      "displayName": "",
+      "attributes": {},
+      "_id": "df6b74ca-4a2a-4842-891c-e5a726230c58",
+      "uris": [],
+      "scopes": [
+        {
+          "name": "read"
+        },
+        {
+          "name": "update"
+        },
+        {
+          "name": "delete"
+        },
+        {
+          "name": "write"
+        }
+      ],
+      "icon_uri": ""
+    },
+    {
+      "name": "rooms",
+      "ownerManagedAccess": false,
+      "displayName": "",
+      "attributes": {},
+      "_id": "dac002b7-a636-4ac1-a67f-113824668e18",
+      "uris": [],
+      "scopes": [
+        {
+          "name": "read"
+        },
+        {
+          "name": "update"
+        },
+        {
+          "name": "delete"
+        },
+        {
+          "name": "write"
+        }
+      ],
+      "icon_uri": ""
+    }
+  ],
+  "policies": [
+    {
+      "id": "c3258e40-b5ce-4cb9-b70c-0a91dfe573c3",
+      "name": "Default Policy",
+      "description": "A policy that grants access only for users within this realm",
+      "type": "js",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
+      }
+    },
+    {
+      "id": "4599aefd-8fce-4609-80e1-ac4ee46357b2",
+      "name": "admin-policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"admin\",\"required\":true}]"
+      }
+    },
+    {
+      "id": "25d3d123-4795-4294-ae9f-5aa79ded7f11",
+      "name": "user-policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"user\",\"required\":true}]"
+      }
+    },
+    {
+      "id": "39f99719-1e59-4bc7-9b6e-9aaece4fa4ea",
+      "name": "Default Permission",
+      "description": "A permission that applies to the default resource type",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "defaultResourceType": "urn:myclient:resources:default",
+        "applyPolicies": "[\"Default Policy\"]"
+      }
+    },
+    {
+      "id": "e7086218-fb63-4c9d-b865-f3cb2ec6ee17",
+      "name": "apartments:read",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"apartments\"]",
+        "scopes": "[\"read\"]",
+        "applyPolicies": "[\"user-policy\",\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "cdff2666-d586-4d6d-9912-d7c74122c7ee",
+      "name": "apartments:write",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"apartments\"]",
+        "scopes": "[\"write\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "2ff07465-b69b-4d6b-a09b-542eac09d648",
+      "name": "apartments:update",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"apartments\"]",
+        "scopes": "[\"update\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "de462f3e-d142-407d-a6d7-fe2e80d02e14",
+      "name": "apartments:delete",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"apartments\"]",
+        "scopes": "[\"delete\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "c8dc3e18-6d36-4122-b79c-13ea1a1bc6fa",
+      "name": "rooms:read",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"rooms\"]",
+        "scopes": "[\"read\"]",
+        "applyPolicies": "[\"user-policy\",\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "0ddcfc63-f6bc-42e0-967d-54260a7425f1",
+      "name": "rooms:write",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"rooms\"]",
+        "scopes": "[\"write\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "c0a73795-aba1-4bcd-892a-5a6639d5fb5e",
+      "name": "rooms:update",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"rooms\"]",
+        "scopes": "[\"update\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    },
+    {
+      "id": "8122b9fe-e22a-4725-adba-fc46266d2882",
+      "name": "rooms:delete",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"rooms\"]",
+        "scopes": "[\"delete\"]",
+        "applyPolicies": "[\"admin-policy\"]"
+      }
+    }
+  ],
+  "scopes": [
+    {
+      "id": "2da2c17a-31f7-472f-bedb-49bae1a19219",
+      "name": "read",
+      "iconUri": ""
+    },
+    {
+      "id": "a68578d1-3d4e-4d53-af54-749c8b716d23",
+      "name": "write",
+      "iconUri": ""
+    },
+    {
+      "id": "d24a52f7-4cd7-4173-b90a-9d6e3a1d344d",
+      "name": "delete",
+      "iconUri": ""
+    },
+    {
+      "id": "b61ed07f-5435-48cb-866d-f1a08e942c39",
+      "name": "update",
+      "iconUri": ""
+    }
+  ],
+  "decisionStrategy": "UNANIMOUS"
+}
