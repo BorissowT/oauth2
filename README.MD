@@ -68,19 +68,21 @@ source: https://www.rfc-editor.org/rfc/rfc6749#section-2.1 <br/><br/>
    authenticate securely with the authorization server (i.e., ability to
    maintain the confidentiality of their client credentials):
 <br/><br/>
-   confidential<br/><br/>
-      Clients capable of maintaining the confidentiality of their
-      credentials (e.g., client implemented on a secure server with
-      restricted access to the client credentials), or capable of secure
-      client authentication using other means.
+####   Confidential
+Clients capable of maintaining the confidentiality of their
+credentials (e.g., client implemented on a secure server with
+restricted access to the client credentials), or capable of secure
+client authentication using other means.
 <br/><br/>
-   public<br/><br/>
-      Clients incapable of maintaining the confidentiality of their
-      credentials (e.g., clients executing on the device used by the
-      resource owner, such as an installed native application or a web
-      browser-based application), and incapable of secure client
-      authentication via any other means.
+
+####  Public
+Clients incapable of maintaining the confidentiality of their
+credentials (e.g., clients executing on the device used by the
+resource owner, such as an installed native application or a web
+browser-based application), and incapable of secure client
+authentication via any other means.
 <br/><br/>
+--<br/>
    The client type designation is based on the authorization server's
    definition of secure authentication and its acceptable exposure
    levels of client credentials.  The authorization server SHOULD NOT
@@ -95,8 +97,8 @@ source: https://www.rfc-editor.org/rfc/rfc6749#section-2.1 <br/><br/>
    register each component as a separate client.
 <br/><br/>
 ### Usage of RPT token
-
-The two invocations that you mention are not supposed to be by the same party.
+extract from: <a href="https://keycloak.discourse.group/t/obtain-rpt-without-having-to-invoke-keycloak-api-twice/13291/3" target="_blank">Source</a>
+<br/><br/>The two invocations that you mention are not supposed to be by the same party.
 
 The first one is authentication by the client app: it provides authent data (here, username + passwd) and gets a token from the authent service. This token can be used by the client app to access any service, provided the audience is ok, date is ok etc. The client does not know how any data or calls are protected, it just uses a token as a black box.
 
