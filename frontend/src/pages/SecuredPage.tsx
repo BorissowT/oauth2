@@ -11,47 +11,84 @@ import {
     useLazyGetRoomsQuery
 } from "../store/api/roomsSlice";
 
+/**
+ * SecuredPage component.
+ * Renders a secured page with buttons to create, delete, update, and get apartments and rooms.
+ * Displays error messages if any.
+ */
 const SecuredPage = () => {
 
+    // Apartment state and mutations
     const [createApartment, {data: createData, error: createError}] = useCreateApartmentMutation()
     const [deleteApartment, {data: deleteData, error: deleteError}] = useDeleteApartmentMutation()
     const [changeApartment, {data: changeData, error: changeError}] = useChangeApartmentMutation()
     const [fetchApartments, {data: apartmentsData, error: apartmentsError}] = useLazyGetApartmentsQuery()
+    // Room state and mutations
+    const [createRoom, { data: createRoomData, error: createRoomError }] = useCreateRoomMutation();
+    const [deleteRoom, { data: deleteRoomData, error: deleteRoomError }] = useDeleteRoomMutation();
+    const [changeRoom, { data: changeRoomData, error: changeRoomError }] = useChangeRoomMutation();
+    const [fetchRooms, { data: roomsData, error: roomsError }] = useLazyGetRoomsQuery();
 
-    const [createRoom, {data: createRoomData, error: createRoomError}] = useCreateRoomMutation();
-    const [deleteRoom, {data: deleteRoomData, error: deleteRoomError}] = useDeleteRoomMutation();
-    const [changeRoom, {data: changeRoomData, error: changeRoomError}] = useChangeRoomMutation();
-    const [fetchRooms, {data: roomsData, error: roomsError}] = useLazyGetRoomsQuery();
-
+    /**
+     * Event handler for creating an apartment.
+     * Calls the createApartment mutation with a default name.
+     */
     const handleCreateApartment = () => {
-        createApartment({name: "New Apartment"})
-    }
+        createApartment({ name: "New Apartment" });
+    };
 
+    /**
+     * Event handler for deleting an apartment.
+     * Calls the deleteApartment mutation with an apartment ID.
+     */
     const handleDeleteApartment = () => {
-        deleteApartment(1)
-    }
+        deleteApartment(1);
+    };
 
+    /**
+     * Event handler for updating an apartment.
+     * Calls the changeApartment mutation with an apartment ID and a new name.
+     */
     const handleChangeApartment = () => {
-        changeApartment({id: 1, name: "Changed Apartment"})
-    }
+        changeApartment({ id: 1, name: "Changed Apartment" });
+    };
 
+    /**
+     * Event handler for fetching apartments.
+     * Calls the fetchApartments query to get a list of apartments.
+     */
     const handleGetApartments = () => {
-        fetchApartments('')
-    }
+        fetchApartments("");
+    };
 
-
+    /**
+     * Event handler for creating a room.
+     * Calls the createRoom mutation with a default name.
+     */
     const handleCreateRoom = () => {
-        createRoom({name: "New Room"})
-    }
+        createRoom({ name: "New Room" });
+    };
 
+    /**
+     * Event handler for deleting a room.
+     * Calls the deleteRoom mutation with a room ID.
+     */
     const handleDeleteRoom = () => {
-        deleteRoom(1)
-    }
+        deleteRoom(1);
+    };
 
+    /**
+     * Event handler for updating a room.
+     * Calls the changeRoom mutation with a room ID and a new name.
+     */
     const handleChangeRoom = () => {
-        changeRoom({id: 1, name: "Changed Room"})
-    }
+        changeRoom({ id: 1, name: "Changed Room" });
+    };
 
+    /**
+     * Event handler for fetching rooms.
+     * Calls the fetchRooms query to get a list of rooms.
+     */
     const handleGetRooms = () => {
         fetchRooms()
     }
