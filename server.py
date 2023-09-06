@@ -1,12 +1,11 @@
-"""Python Flask API Auth0 integration example
+"""Python Flask API Auth0 integration example.
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from flask_cors import CORS
 
 from resource_protector import ResourceProtector
 from validator import KeyCloakJWTBearerTokenValidator
-from flask_cors import CORS
-
 
 require_auth = ResourceProtector()
 validator = KeyCloakJWTBearerTokenValidator(

@@ -1,12 +1,14 @@
+"""Validator is used to encode, decode and validate token.
+"""
 import json
 import logging
 from urllib.request import urlopen
-import requests
 
+import requests
 from authlib.jose import JoseError, jwt
+from authlib.jose.rfc7517.jwk import JsonWebKey
 from authlib.oauth2.rfc6750 import BearerTokenValidator, InvalidTokenError, \
     InsufficientScopeError
-from authlib.jose.rfc7517.jwk import JsonWebKey
 from authlib.oauth2.rfc7523 import JWTBearerToken
 
 logger = logging.getLogger(__name__)

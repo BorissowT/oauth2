@@ -1,10 +1,12 @@
+"""Resource protector implements authorization.
+Based on uthlib.integrations.flask_oauth2.ResourceProtector ."""
 import functools
 
-from authlib.integrations.flask_oauth2.requests import FlaskJsonRequest
-from authlib.oauth2 import OAuth2Error
-from authlib.oauth2.rfc6749 import TokenValidator, MissingAuthorizationError
 from authlib.integrations.flask_oauth2 import ResourceProtector as RPBase, \
     token_authenticated
+from authlib.integrations.flask_oauth2.requests import FlaskJsonRequest
+from authlib.oauth2 import OAuth2Error
+from authlib.oauth2.rfc6749 import MissingAuthorizationError
 from flask import request as _req, g
 
 
@@ -24,7 +26,6 @@ class ResourceProtector(RPBase):
 
         require_oauth.register_token_validator(MyBearerTokenValidator())
 
-        TODO rewrite usage here
         # protect resource with require_oauth
 
         @app.route('/api/apartments', methods=['GET'])
