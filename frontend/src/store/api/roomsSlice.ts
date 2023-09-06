@@ -8,7 +8,7 @@ export const roomsSlice = apiSlice.injectEndpoints({
         }),
         deleteRoom: build.mutation({
             query: (id) => ({
-                url: `rooms/${id}`,
+                url: `rooms`,
                 method: 'DELETE'
             })
         }),
@@ -21,7 +21,7 @@ export const roomsSlice = apiSlice.injectEndpoints({
         }),
         changeRoom: build.mutation({
             query: (room) => ({
-                url: `rooms/${room.id}`,
+                url: `rooms`,
                 method: 'PUT',
                 body: room
             })

@@ -4,6 +4,12 @@ import {
     useCreateApartmentMutation, useDeleteApartmentMutation,
     useLazyGetApartmentsQuery
 } from "../store/api/apartmentsSlice";
+import {
+    useChangeRoomMutation,
+    useCreateRoomMutation,
+    useDeleteRoomMutation,
+    useLazyGetRoomsQuery
+} from "../store/api/roomsSlice";
 
 const SecuredPage = () => {
 
@@ -11,6 +17,11 @@ const SecuredPage = () => {
     const [deleteApartment, {data: deleteData, error: deleteError}] = useDeleteApartmentMutation()
     const [changeApartment, {data: changeData, error: changeError}] = useChangeApartmentMutation()
     const [fetchApartments, {data: apartmentsData, error: apartmentsError}] = useLazyGetApartmentsQuery()
+
+    const [createRoom, {data: createRoomData, error: createRoomError}] = useCreateRoomMutation();
+    const [deleteRoom, {data: deleteRoomData, error: deleteRoomError}] = useDeleteRoomMutation();
+    const [changeRoom, {data: changeRoomData, error: changeRoomError}] = useChangeRoomMutation();
+    const [fetchRooms, {data: roomsData, error: roomsError}] = useLazyGetRoomsQuery();
 
     const handleCreateApartment = () => {
         createApartment({name: "New Apartment"})
@@ -28,7 +39,22 @@ const SecuredPage = () => {
         fetchApartments('')
     }
 
-    console.log(createError)
+
+    const handleCreateRoom = () => {
+        createRoom({name: "New Room"})
+    }
+
+    const handleDeleteRoom = () => {
+        deleteRoom(1)
+    }
+
+    const handleChangeRoom = () => {
+        changeRoom({id: 1, name: "Changed Room"})
+    }
+
+    const handleGetRooms = () => {
+        fetchRooms()
+    }
 
     return (
         <>
@@ -49,7 +75,21 @@ const SecuredPage = () => {
                 <button onClick={handleGetApartments}>Get Apartments</button>
             </div>
             <br/>
-            <div></div>
+            {/*@ts-ignore*/}
+            <p>Get: {roomsError ? roomsError.data.error_description : roomsData?.message}</p>
+            {/*@ts-ignore*/}
+            <p>Create: {createRoomError ? createRoomError.data.error_description : createRoomData?.message}</p>
+            {/*@ts-ignore*/}
+            <p>Delete: {deleteRoomError ? deleteRoomError.data.error_description : deleteRoomData?.message}</p>
+            {/*@ts-ignore*/}
+            <p>Update: {changeRoomError ? changeRoomError.data.error_description : changeRoomData?.message}</p>
+            <div>
+                <br/>
+                <button onClick={handleCreateRoom}>Create Room</button>
+                <button onClick={handleDeleteRoom}>Delete Room</button>
+                <button onClick={handleChangeRoom}>Update Room</button>
+                <button onClick={handleGetRooms}>Get Rooms</button>
+            </div>
         </>
     );
 };
