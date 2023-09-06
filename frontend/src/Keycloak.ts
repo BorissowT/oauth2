@@ -2,8 +2,7 @@ import Keycloak from "keycloak-js";
 const keycloak = new Keycloak({
     url: "http://192.168.105.139:8080/auth",
     realm: "myrealm",
-    clientId: "react-auth",
+    clientId: "reactclient",
 });
-
 
 export default keycloak;
